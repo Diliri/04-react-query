@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import type { ComponentType } from "react";
 import { Toaster, toast } from "react-hot-toast";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import ReactPaginateModule from "react-paginate";
 import type { ReactPaginateProps } from "react-paginate";
 
@@ -36,6 +36,7 @@ export default function App() {
     queryKey: ["movies", query, page],
     queryFn: () => fetchMovies(query, page),
     enabled: query.length > 0, // запит не піде, поки query порожній
+    placeholderData: keepPreviousData, // <-- ДЛЯ ПЛАВНОЇ ПАГІНАЦІЇ!
   });
 
   // Ефект для виведення тосту, якщо нічого не знайдено
